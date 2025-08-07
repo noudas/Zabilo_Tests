@@ -13,6 +13,9 @@
   - [4. Multilingual Support](#4-multilingual-support)
 - [Implementation Steps](#implementation-steps)
 - [Final Result](#final-result)
+- [Two Implementation Versions](#two-implementation-versions)
+  - [Simple Version](#simple-version)
+  - [Complete Version](#complete-version)
 
 ---
 
@@ -190,14 +193,78 @@ return $this->display(__FILE__, 'views/templates/hook/display.tpl');
 - ✅ **Enter versions** per language
 - ✅ **See results** immediately on frontend
 
-### Recommended Module Structure:
+---
+
+## Two Implementation Versions
+
+This exercise provides **two different approaches** to solve the same problem:
+
+### Simple Version
+
+**Perfect for:** Learning, quick implementation, basic functionality
+
+**Features:**
+- ✅ Basic editable message
+- ✅ Simple admin form
+- ✅ Minimal file structure
+- ✅ Easy to understand
+
+**File Structure:**
 ```
 mymodule/
-├── mymodule.php
+├── mymodule.php                 # Main module file
+└── display.tpl                  # Frontend template
+```
+
+**Key Differences:**
+- Single language support
+- No CSS styling
+- No security index files
+- No translation files
+- No database SQL files
+- Template in root directory
+
+### Complete Version
+
+**Perfect for:** Production, professional modules, full features
+
+**Features:**
+- ✅ Multilingual support
+- ✅ Professional styling
+- ✅ Security measures
+- ✅ Translation files
+- ✅ Database management
+- ✅ Complete file structure
+
+**File Structure:**
+```
+mymodule/
+├── mymodule.php                 # Main module file
+├── config.xml                   # Module configuration
+├── logo.png                     # Module icon (32x32)
+├── index.php                    # Security redirect
+├── LICENSE                      # License file
+├── README.md                    # Documentation
+├── install/
+│   ├── index.php               # Security redirect
+│   ├── install.sql             # Database setup
+│   └── uninstall.sql           # Database cleanup
+├── translations/
+│   ├── index.php               # Security redirect
+│   └── en.php                  # English translations
 └── views/
+    ├── index.php               # Security redirect
+    ├── css/
+    │   ├── index.php           # Security redirect
+    │   └── mymodule.css        # Frontend styles
     └── templates/
+        ├── index.php           # Security redirect
+        ├── admin/
+        │   ├── index.php       # Security redirect
+        │   └── configure.tpl   # Admin configuration template
         └── hook/
-            └── display.tpl
+            ├── index.php       # Security redirect
+            └── display.tpl     # Frontend display template
 ```
 
 ---
@@ -208,6 +275,21 @@ mymodule/
 - **Focus on PrestaShop best practices** for configuration management
 - **Consider security** with proper escaping in templates
 - **Test multilingual functionality** thoroughly
+
+## Which Version to Choose?
+
+### Choose **Simple Version** if:
+- You're learning PrestaShop module development
+- You need a quick solution
+- You want minimal complexity
+- You're building a basic module
+
+### Choose **Complete Version** if:
+- You're building for production
+- You need multilingual support
+- You want professional standards
+- You're creating a commercial module
+- You need full security measures
 
 ---
 

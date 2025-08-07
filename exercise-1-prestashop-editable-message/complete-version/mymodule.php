@@ -24,6 +24,7 @@ class MyModule extends Module
     {
         return parent::install()
             && $this->registerHook('displayHome')
+            && $this->registerHook('displayHeader')
             && $this->installDefaultConfig();
     }
 
@@ -113,5 +114,10 @@ class MyModule extends Module
         ]);
 
         return $this->display(__FILE__, 'views/templates/hook/display.tpl');
+    }
+
+    public function hookDisplayHeader($params)
+    {
+        $this->context->controller->addCSS($this->_path . 'views/css/mymodule.css');
     }
 }

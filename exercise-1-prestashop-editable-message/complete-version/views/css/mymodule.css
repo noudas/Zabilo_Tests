@@ -1,0 +1,33 @@
+/**
+ * MyModule CSS
+ *
+ * @author    Your Name
+ * @copyright 2024 Your Company
+ * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
+ */
+
+.mymodule-message {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 15px;
+    margin: 20px 0;
+    text-align: center;
+    font-size: 16px;
+    color: #495057;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.mymodule-message:hover {
+    background: #e9ecef;
+    transition: background-color 0.3s ease;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .mymodule-message {
+        font-size: 14px;
+        padding: 10px;
+        margin: 15px 0;
+    }
+}
