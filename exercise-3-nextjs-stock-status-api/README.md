@@ -15,7 +15,6 @@
 7. [API Testing & Usage](#api-testing--usage)
 8. [Error Handling & Optimization](#error-handling--optimization)
 9. [Scalability & Production Considerations](#scalability--production-considerations)
-10. [Future Enhancements](#future-enhancements)
 
 ---
 
