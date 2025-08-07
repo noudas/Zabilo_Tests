@@ -1,6 +1,6 @@
 # Exercise 2 – Google Apps Script Order Processing Automation
 
-## 📋 Table of Contents
+## Table of Contents
 
 1. [Exercise Overview](#exercise-overview)
 2. [Exercise Requirements](#exercise-requirements)
@@ -19,7 +19,7 @@
 
 ---
 
-## 🎯 Exercise Overview
+## Exercise Overview
 
 **Exercise 2 – Medium: Automate a Task with Google Apps Script**
 
@@ -37,15 +37,15 @@ We use a Google Sheet to manually track orders. Write a Google Apps Script that 
 
 ---
 
-## 📋 Exercise Requirements
+## Exercise Requirements
 
 ### Core Requirements:
-✅ **Read all rows** in the "Orders" sheet  
-✅ **Filter rows** with status "Pending"  
-✅ **Move filtered rows** to "To Process" sheet  
-✅ **Run automatically** once per day  
-✅ **Handle errors** gracefully  
-✅ **Optimize performance** for efficiency  
+- **Read all rows** in the "Orders" sheet  
+- **Filter rows** with status "Pending"  
+- **Move filtered rows** to "To Process" sheet  
+- **Run automatically** once per day  
+- **Handle errors** gracefully  
+- **Optimize performance** for efficiency  
 
 ### Technical Requirements:
 - Google Apps Script environment
@@ -56,7 +56,7 @@ We use a Google Sheet to manually track orders. Write a Google Apps Script that 
 
 ---
 
-## 💻 Solution Overview
+## Solution Overview
 
 This exercise demonstrates **automated data processing** using Google Apps Script. The solution creates a daily automation that:
 
@@ -73,7 +73,7 @@ This exercise demonstrates **automated data processing** using Google Apps Scrip
 
 ---
 
-## 🔄 Implementation Versions
+## Implementation Versions
 
 ### Simple Version
 **Best for:** Learning, prototyping, simple workflows
@@ -81,19 +81,19 @@ This exercise demonstrates **automated data processing** using Google Apps Scrip
 **File:** `simple-version/Code.gs`
 
 **Features:**
-- ✅ Basic error handling with try-catch
-- ✅ Simple sheet references and validation
-- ✅ Manual header matching
-- ✅ Straightforward implementation
-- ✅ Easy to understand and modify
-- ✅ Minimal code complexity
+- Basic error handling with try-catch
+- Simple sheet references and validation
+- Manual header matching
+- Straightforward implementation
+- Easy to understand and modify
+- Minimal code complexity
 
 **Limitations:**
-- ❌ No column validation
-- ❌ No advanced alerts
-- ❌ Limited error handling
-- ❌ Not production-ready
-- ❌ No logging or monitoring
+- No column validation
+- No advanced alerts
+- Limited error handling
+- Not production-ready
+- No logging or monitoring
 
 ---
 
@@ -103,28 +103,28 @@ This exercise demonstrates **automated data processing** using Google Apps Scrip
 **File:** `complete-version/Code.gs`
 
 **Features:**
-- ✅ Comprehensive error handling and validation
-- ✅ Detailed logging and optional email notifications
-- ✅ Dynamic column detection and validation
-- ✅ Performance optimizations
-- ✅ Extensible architecture
-- ✅ Production-ready code structure
-- ✅ Configuration object for easy customization
-- ✅ Test functions for validation
-- ✅ Optional logging sheet
-- ✅ Email notifications for success/error
+- Comprehensive error handling and validation
+- Detailed logging and optional email notifications
+- Dynamic column detection and validation
+- Performance optimizations
+- Extensible architecture
+- Production-ready code structure
+- Configuration object for easy customization
+- Test functions for validation
+- Optional logging sheet
+- Email notifications for success/error
 
 **Advanced Features:**
-- 📊 **Logging System:** Optional sheet-based logging with timestamps
-- 📧 **Email Notifications:** Success and error reports
-- ⚙️ **Configuration Object:** Easy customization without code changes
-- 🧪 **Test Functions:** Setup validation and testing
-- 📈 **Performance Monitoring:** Duration tracking and optimization
-- 🔄 **Extensible Architecture:** Easy to add new features
+- **Logging System:** Optional sheet-based logging with timestamps
+- **Email Notifications:** Success and error reports
+- **Configuration Object:** Easy customization without code changes
+- **Test Functions:** Setup validation and testing
+- **Performance Monitoring:** Duration tracking and optimization
+- **Extensible Architecture:** Easy to add new features
 
 ---
 
-## 📝 Code Breakdown
+## Code Breakdown
 
 ### Simple Version Breakdown
 
@@ -511,29 +511,29 @@ function testSetup() {
     
     const spreadsheet = initializeSpreadsheet();
     if (!spreadsheet) {
-      Logger.log("❌ Spreadsheet initialization failed");
+      Logger.log("Spreadsheet initialization failed");
       return false;
     }
     
     const { ordersSheet, toProcessSheet } = validateAndGetSheets(spreadsheet);
     if (!ordersSheet || !toProcessSheet) {
-      Logger.log("❌ Sheet validation failed");
+      Logger.log("Sheet validation failed");
       return false;
     }
     
     const { data, headers, statusIndex } = validateDataStructure(ordersSheet);
     if (statusIndex === -1) {
-      Logger.log("❌ Status column not found");
+      Logger.log("Status column not found");
       return false;
     }
     
-    Logger.log("✅ Setup validation passed");
-    Logger.log("📊 Orders sheet has " + (data.length - 1) + " data rows");
-    Logger.log("📋 Available columns: " + headers.join(", "));
+    Logger.log("Setup validation passed");
+    Logger.log("Orders sheet has " + (data.length - 1) + " data rows");
+    Logger.log("Available columns: " + headers.join(", "));
     
     return true;
   } catch (error) {
-    Logger.log("❌ Setup test failed: " + error.message);
+    Logger.log("Setup test failed: " + error.message);
     return false;
   }
 }
@@ -573,7 +573,7 @@ function createLogsSheet() {
 
 ---
 
-## 🚀 Setup Instructions
+## Setup Instructions
 
 ### For Simple Version:
 
@@ -622,7 +622,7 @@ function createLogsSheet() {
 
 ---
 
-## ⏰ Trigger Configuration
+## Trigger Configuration
 
 ### Setting Up Automatic Execution:
 
@@ -646,41 +646,41 @@ function createLogsSheet() {
 
 ---
 
-## 🛡️ Error Handling & Optimization
+## Error Handling & Optimization
 
 ### Error Handling Features:
 
 **Simple Version:**
-- ✅ Basic try-catch error handling
-- ✅ Sheet existence validation
-- ✅ Column existence validation
-- ✅ Console logging for errors
+- Basic try-catch error handling
+- Sheet existence validation
+- Column existence validation
+- Console logging for errors
 
 **Complete Version:**
-- ✅ Comprehensive error handling with detailed messages
-- ✅ Multiple validation layers
-- ✅ Email notifications for errors
-- ✅ Sheet-based logging
-- ✅ Graceful failure handling
-- ✅ Setup validation functions
+- Comprehensive error handling with detailed messages
+- Multiple validation layers
+- Email notifications for errors
+- Sheet-based logging
+- Graceful failure handling
+- Setup validation functions
 
 ### Performance Optimization:
 
 **Simple Version:**
-- ✅ Batch reading with `getValues()`
-- ✅ Batch writing with `setValues()`
-- ✅ Bottom-up row deletion to avoid index issues
+- Batch reading with `getValues()`
+- Batch writing with `setValues()`
+- Bottom-up row deletion to avoid index issues
 
 **Complete Version:**
-- ✅ All simple version optimizations
-- ✅ Performance monitoring and timing
-- ✅ Configurable batch operations
-- ✅ Memory-efficient processing
-- ✅ Duration tracking and logging
+- All simple version optimizations
+- Performance monitoring and timing
+- Configurable batch operations
+- Memory-efficient processing
+- Duration tracking and logging
 
 ---
 
-## 🧪 Testing & Troubleshooting
+## Testing & Troubleshooting
 
 ### Testing Functions (Complete Version):
 
@@ -720,7 +720,7 @@ function createLogsSheet() {
 
 ---
 
-## 📈 Performance Considerations
+## Performance Considerations
 
 ### Simple Version:
 - **Suitable for:** Small to medium datasets (< 1000 rows)
@@ -744,7 +744,7 @@ function createLogsSheet() {
 
 ---
 
-## 📊 Expected Data Structure
+## Expected Data Structure
 
 ### Orders Sheet (Source):
 | Order ID | Customer | Product | Status | Date | ... |
@@ -764,7 +764,7 @@ function createLogsSheet() {
 
 ---
 
-## 🎯 Summary
+## Summary
 
 This exercise demonstrates **practical automation** using Google Apps Script to solve real-world business problems. The solution provides:
 
