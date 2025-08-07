@@ -6,10 +6,8 @@
 2. [Exercise Requirements](#exercise-requirements)
 3. [Solution Overview](#solution-overview)
 4. [Implementation Versions](#implementation-versions)
-
    * [Simple Version](#simple-version)
 5. [Code Breakdown](#code-breakdown)
-
    * [Simple Version Breakdown](#simple-version-breakdown)
 6. [Setup Instructions](#setup-instructions)
 7. [API Testing & Usage](#api-testing--usage)
