@@ -305,7 +305,7 @@ flowchart LR
     end
 
     subgraph Queue
-        D --> E[Message Broker\n(Redis / RabbitMQ / SQS)]
+        D --> E["Message Broker<br/>(Redis / RabbitMQ / SQS)"]
     end
 
     subgraph Worker Service
