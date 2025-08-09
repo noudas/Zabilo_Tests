@@ -5,20 +5,20 @@
 1. [Exercise Overview](#exercise-overview)
 2. [Exercise Requirements](#exercise-requirements)
 3. [Solution Overview](#solution-overview)
-4. [Implementation Versions](#implementation-versions)
+4. [How It Works](#how-it-works)
+5. [Implementation Versions](#implementation-versions)
    * [Simple (Direct Hook)](#1-simple-direct-hook)
    * [Intermediate (Async HTTP)](#2-intermediate-async-http)
    * [Advanced (Hook & Worker)](#3-advanced-hook--worker)
-5. [Code Breakdown](#code-breakdown)
-6. [Setup Instructions](#setup-instructions)
-7. [API Testing & Usage](#api-testing--usage)
-8. [Error Handling & Optimization](#error-handling--optimization)
-9. [Performance & Failure Handling Comparison](#performance--failure-handling-comparison)
-10. [Scalability & Production Considerations](#scalability--production-considerations)
-11. [Architecture Diagrams](#architecture-diagrams)
-12. [How It Works](#how-it-works)
-13. [Additional Features to Consider](#additional-features-to-consider)
-14. [Local Demo Quickstart](#local-demo-quickstart)
+6. [Architecture Diagrams](#architecture-diagrams)
+7. [Setup Instructions](#setup-instructions)
+8. [Local Demo Quickstart](#local-demo-quickstart)
+9. [API Testing & Usage](#api-testing--usage)
+10. [Error Handling & Optimization](#error-handling--optimization)
+11. [Recommended Policies & Enhancements](#recommended-policies--enhancements)
+12. [Performance & Failure Handling Comparison](#performance--failure-handling-comparison)
+13. [Scalability & Production Considerations](#scalability--production-considerations)
+14. [Additional Features to Consider](#additional-features-to-consider)
 
 ---
 
@@ -424,4 +424,47 @@ These demos require only PHP with the cURL extension. No DB or PrestaShop needed
 - Simple: the script waits for HTTP to complete before exiting.
 - Intermediate: minimal waiting; logs indicate async completion.
 - Advanced: producer enqueues; worker processes, retries with backoff, sends to DLQ after max retries.
+
+---
+
+## Recommended Policies & Enhancements
+
+### Retry & Timeout Policy
+- Timeouts: 5–10s connect/read timeouts for HTTP calls.
+- Retryable conditions: network errors, HTTP 408, 429, and 5xx.
+- Max retries: 3–5 attempts with exponential backoff and jitter (e.g., 1s, 2s, 4s + 0–250ms jitter).
+- Circuit breaker: temporarily stop attempts if error rate exceeds threshold; resume after cool-off.
+- Respect `Retry-After` header on 429/503 when present.
+
+### Idempotency
+- Send an `Idempotency-Key` header: `product:{id}:{timestamp or hash}`.
+- External API should store keys at least 30 days to deduplicate retried requests.
+- Ensure server-side logic treats repeated keys as safe replays (same response or 409/200).
+
+### Security Measures
+- Transport: HTTPS only.
+- Auth: Bearer tokens or HMAC signatures (include date, body hash) with short-lived tokens or key rotation.
+- Least privilege: Token scope limited to product ingest; rotate regularly.
+- Storage: In PrestaShop, store credentials in `Configuration` with encryption at rest.
+- Network: Optional IP allowlisting and WAF rules for the API endpoint.
+
+### Rate Limiting & Backpressure
+- Handle 429: backoff with jitter, parse `Retry-After`, slow down workers.
+- Backpressure: cap concurrent workers and queue depth; apply dynamic throttling.
+- Batching: if supported, batch multiple products per request to reduce overhead.
+
+### Data Validation & Localization
+- Validate/sanitize: ensure `id` is int, `price` numeric, `stock` non-negative.
+- Localization: choose language for `name` explicitly (default or shop language) and document fallback.
+- Schema versioning: include a `version` field in payload for evolvability.
+
+### Configuration Mapping (Real Module)
+- Expose settings in module config UI mapped to `Configuration` keys:
+  - `MY_API_URL`, `MY_API_TOKEN`, retry count, backoff, timeout, enable batching.
+- Mask sensitive fields in UI; add test button to validate connectivity.
+
+### Observability
+- Logging: structured logs including product id, status code, latency, attempt, idempotency key.
+- Metrics: counters (success/failure), histograms (latency), gauges (queue length), DLQ size.
+- Alerts: on sustained failures, DLQ growth, or high latency.
 
